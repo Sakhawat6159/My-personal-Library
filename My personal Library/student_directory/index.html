@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Directory</title>
+</head>
+<body>
+    <h1>Student Directory</h1>
+    <form id="studentForm">
+        <h2>Select Students:</h2>
+        <div id="studentList"></div>
+        <button type="button" onclick="showSelected()">Show Selected</button>
+    </form>
+    <h2>Selected Students:</h2>
+    <div id="selectedStudents"></div>
+
+    <script>
+        const studentsData = {{ students | tojson }};
+
+
+
+
+
+
+        console.log(studentsData); // Debugging line to check the data
+
+        const studentListDiv = document.getElementById('studentList');
+
+        studentsData.forEach(student => {
+
+
+
+
+
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = student;
+            checkbox.id = student;
+
+            const label = document.createElement('label');
+            label.htmlFor = student;
+            label.appendChild(document.createTextNode(student));
+
+            studentListDiv.appendChild(checkbox);
+            studentListDiv.appendChild(label);
+            studentListDiv.appendChild(document.createElement('br'));
+        });
+
+        function showSelected() {
+            const selectedDiv = document.getElementById('selectedStudents');
+            selectedDiv.innerHTML = '';
+            const selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value);
+            selectedDiv.innerHTML = selected.join(', ');
+        }
+    </script>
+</body>
+</html>
